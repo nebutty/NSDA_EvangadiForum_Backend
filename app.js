@@ -5,6 +5,7 @@ const port = 5500;
 
 const userRoutes = require("./routes/userRoute");
 const questionRoutes = require('./routes/questionRoute')
+const answerRoute = require('./routes/answerRoute')
 const dbconnection = require("./db/dbConfig");
 
 // ✅ Parse JSON before routes
@@ -14,7 +15,8 @@ app.use(express.json());
 
 
 app.use("/api/users", userRoutes);
-app.use("/api/questions",questionRoutes)
+app.use("/api/questions",questionRoutes);
+app.use("/api/answers",answerRoute);
 async function start() {
   try {
     const [result] = await dbconnection.execute("SELECT 'test'");
@@ -24,5 +26,5 @@ async function start() {
     console.log(error.message);
   }
 }
-
+app.listen(port, () => console.log(`listening on ${port}`));
 start();
